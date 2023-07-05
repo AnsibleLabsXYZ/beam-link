@@ -1,0 +1,3 @@
+type name = {
+    name: string
+}
