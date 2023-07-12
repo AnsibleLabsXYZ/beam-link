@@ -8,7 +8,7 @@ Beam Link is the client-side component that your users will interact with in ord
 
 The diagram below shows a model of how Beam Link is used to obtain a public_token, which will then be exchanged for an access_token, which is used to authenticate requests to the Beam API.
 
-<insert diagranm>
+![](https://i.ibb.co/dD2ZN2s/Beam-SDK.png)
 
 **Step 1:** Create a new link_token by making a POST request to the users endpoint. This link_token is short lived one time use token that authenticates your app with Beam Link, our frontend module.
 
