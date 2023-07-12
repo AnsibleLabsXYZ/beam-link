@@ -1,5 +1,7 @@
 export declare const useBeamLink: (options: {
-    name: string;
+    linkToken: string;
+    onSuccess: (publicToken: string) => void;
+    onExit: () => void;
 }) => {
     error: string | null;
     ready: boolean;

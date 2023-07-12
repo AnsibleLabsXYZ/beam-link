@@ -100,7 +100,6 @@ export const useBeamLink = (options: {
   }, [options.linkToken]);
 
   const open = () => {
-    document.cookie = "name=accessToken; expires=Sat, 20 Jan 1980 12:00:00 UTC";
     if (!options.linkToken) {
       console.warn(
         "You cannot call open() without a valid token supplied to useBeamLink"
