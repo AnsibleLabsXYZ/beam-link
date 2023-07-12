@@ -147,6 +147,32 @@ Exchange a users public token for a private user token
 
 ```
 
+Get a deposit from webhook event
+
+```
+
+    fetch("BACKEND_URL/users/:privateUserAccessToken/deposits/:depositId", {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer ${private_token}'
+        }
+    })
+    
+    // example response
+    {
+        "id": "7c2fc3c4-dd14-44a6-83e7-99b25e8d1710",
+        "assetType": "ETH",
+        "chain": "ethereum",
+        "amount": "0.002",
+        "marketPrice": "1869.01575",
+        "marketValue": "3.7380315",
+        "onChainReference": "0xf60bd5cdf8f9e8c1615cd1fd26296d10ca3ffdd63a6f5274a3434b6950ccc9f6",
+        "payoutValue": "3.62",
+        "status": "Beam.Deposit.Detected"
+}
+```
+
+
 ##### Webhooks
 
 When certain events happen, Beam will publish webhook events to inform you of said events.
