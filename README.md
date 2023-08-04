@@ -1,6 +1,6 @@
 ## Beam Link
 
-Beam Link is the client-side component that your users will interact with in order to link their beam accounts to your systems and allow you to access their accounts via the Beam API.
+Beam Link is the client-side component that your users will interact with in order to link their Beam accounts to your systems and allow you to access their accounts via the Beam API.
 
 
 
@@ -10,7 +10,7 @@ The diagram below shows a model of how Beam Link is used to obtain a public_toke
 
 ![](https://i.ibb.co/dD2ZN2s/Beam-SDK.png)
 
-**Step 1:** Create a new link_token by making a POST request to the users endpoint. This link_token is short lived one time use token that authenticates your app with Beam Link, our frontend module.
+**Step 1:** Create a new link_token by making a POST request to the users endpoint. This link_token is short-lived, one time use token that authenticates your app with Beam Link, our frontend module.
 
 **Step 2:** Once you have a link_token, you can use it to initialize Link. Link is a drop in client-side module available for web that handles the onboarding process.
 
@@ -177,7 +177,7 @@ Get a deposit from webhook event
 
 When certain events happen, Beam will publish webhook events to inform you of said events.
 
-###### Handlign Failure
+###### Handling Failure
 
 In the event something goes wrong and we cannot deliver an event to one of your registrations, we will make several retry attempts. If we still cannot deliver the event, the registration status will change to `SUSPENDED`. No further attempts will be made to deliver previous or future events to this endpoint. It is very important to monitor the statuses of your webhook registrations. 
 
@@ -186,19 +186,19 @@ Also note that webhooks guarantee at-least-once delivery. So while rare, it is t
 
 ###### Webhook Events
 
-`Beam.Deposit.Detected'` A deposit has been detected and is going to start being processed
-`Beam.Deposit.Approved` Deposit has been approved and now be moved off chain
-`Beam.Deposit.Rejected` The deposit has been rejected by Beam
+`Beam.Deposit.Detected` A deposit has been detected and is going to start being processed <br/>
+`Beam.Deposit.Approved` Deposit has been approved and now be moved off chain <br/>
+`Beam.Deposit.Rejected` The deposit has been rejected by Beam <br/>
 
-`Beam.Payment.Initiated` Payment has been sent to the bank for processing
-`Beam.Payment.Completed` The bank has confirmed the payment has been completed
-`Beam.Payment.Rejected` The users payment has been rejected by the bank
+`Beam.Payment.Initiated` Payment has been sent to the bank for processing <br/>
+`Beam.Payment.Completed` The bank has confirmed the payment has been completed <br/>
+`Beam.Payment.Rejected` The users payment has been rejected by the bank <br/>
 
 ###### Endpoints
 
 Get current webhook registration and status
 
-Your webhook will have either an status of `ACTIVE` or `SUSUPENDED`
+Your webhook will have either an status of `ACTIVE` or `SUSPENDED`
 
 ```
     fetch("BACKEND_URL/partners/webhooks", {
