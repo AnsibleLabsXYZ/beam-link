@@ -68,6 +68,8 @@ The diagram below shows a model of how Beam Link is used to obtain a public_toke
 
 In order to make API requests you will need to provide your client secret in the headers and whitelist your server IPs for each environment. We currently support a Sandbox and Production environment.
 
+[Postman Collection](https://www.postman.com/ansiblelabs/workspace/beam-link-public-api/)
+
 #### Authentication
 
 You must provide the client secret as shown below
@@ -84,7 +86,7 @@ You must provide the client secret as shown below
 
 ##### Sandbox
 
-Backend Url: `https://api.pentest.ansiblelabs.xyz/`
+Backend Url: `https://api.dev.ansiblelabs.xyz/`
 
 ##### Production
 
@@ -266,4 +268,46 @@ Updating webhook registration
     resources: ['users/e90751ef-273f-46f5-bb5f-93e3e18a0d35/deposits/7c2fc3c4-dd14-44a6-83e7-99b25e8d1710'],
 }
 
+```
+
+##### Rates
+
+Current market price, Ansible fees, and expected payout value are available via an API call.
+
+###### Supported Symbols
+
+- ETH
+- USDC.ETH
+- USDC.POLYGON
+- MATIC.POLYGON
+- SOL
+- USDC.SOL
+- AVAX
+- USDC.AVAX
+- XLM
+- USDC.XLM
+- BTC
+- USDC.ARBITRUM
+
+###### Endpoints
+
+Get current rate for 1 ETH
+
+```
+    fetch("BACKEND_URL/partners/rates?symbol=ETH&quantity=1", {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer ${private_token}'
+        },
+    })
+    
+    // example response
+{
+    "currency": "USD",
+    "marketPrice": 1815.548104125,
+    "totalMarketPrice": 2723.3221561875,
+    "payoutValue": 2642.17,
+    "ansibleFees": 81.16
+}
+    
 ```
