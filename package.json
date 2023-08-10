@@ -48,6 +48,11 @@
   "peerDependencies": {
     "react": "^18.2.0"
   },
+  "overrides": {
+    "word-wrap": "^1.2.4",
+    "simple-update-notifier": "^2.0.0",
+    "semver": "^7.5.4"
+  },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "files": [
