@@ -1,3 +1,1 @@
-type name = {
-    name: string;
-};
+export * from './useBeamLink';

@@ -1,6 +1,8 @@
 import React from "react";
 
-import { useBeamLink } from "../useBeamLink";
+import { BEAM_ENVIRONMENT, useBeamLink } from "../useBeamLink";
+
+
 
 export interface UseBeamLinkProps {
   linkToken: string;
@@ -12,6 +14,7 @@ export interface UseBeamLinkProps {
 export const UseBeamLink = ({ linkToken }: UseBeamLinkProps) => {
   // make api call here
   const { ready, open } = useBeamLink({
+    environment: BEAM_ENVIRONMENT.DEVELOPMENT,
     linkToken: linkToken,
     onSuccess: (publicToken: string) => {
       console.log("user public token", publicToken);
