@@ -28,10 +28,12 @@ The diagram below shows a model of how Beam Link is used to obtain a public_toke
 ##### Use
 
 ```
+  import { BEAM_ENVIRONMENT, useBeamLink } from '@ansiblelabs/beam-link';
 
   const [linkToken, setLinkToken] = useState<string | null>(null);
 
   const { ready, open } = useBeamLink({
+    environment: BEAM_ENVIRONMENT.DEVELOPMENT,
     linkToken: linkToken,
     onSuccess: (publicToken: string) => {
       // exchange the users public token for a long lived private token

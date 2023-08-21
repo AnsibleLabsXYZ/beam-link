@@ -1,6 +1,6 @@
 {
   "name": "@ansiblelabs/beam-link",
-  "version": "0.0.1",
+  "version": "0.0.8",
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -46,7 +46,8 @@
     "typescript": "^5.1.3"
   },
   "peerDependencies": {
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "overrides": {
     "word-wrap": "^1.2.4",

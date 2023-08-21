@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 
+export enum BEAM_ENVIRONMENT {
+  DEVELOPMENT = 'https://beam.dev.ansiblelabs.xyz',
+  PRODUCTION = 'https://app.beam.ansiblelabs.xyz'
+}
+
 export const useBeamLink = (options: {
-  linkToken: string;
+  environment: BEAM_ENVIRONMENT;
+  linkToken: string | null;
   onSuccess: (publicToken: string) => void;
   onExit: () => void;
 }) => {
@@ -17,7 +23,6 @@ export const useBeamLink = (options: {
   const handleEvent = (e: {
     data: { eventName: string; publicToken: string };
   }) => {
-    console.log(e.data, "e.data");
     if (e?.data?.eventName === "beamIframeClose") {
       options.onExit();
       closeModal();
@@ -46,7 +51,7 @@ export const useBeamLink = (options: {
   const insertModal = () => {
     const iframe = document.createElement("iframe", {});
     iframe.classList.add("beam-iframe");
-    iframe.src = `${process.env.REACT_APP_BEAM_URL}/embedded?linkToken=${options.linkToken}`;
+    iframe.src = `http://localhost:8000/embedded?linkToken=${options.linkToken}`;
     iframe.name = Date.now().toString();
     iframe.style.display = "none";
     iframe.style.position = "fixed";
