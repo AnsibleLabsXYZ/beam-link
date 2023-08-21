@@ -51,7 +51,7 @@ export const useBeamLink = (options: {
   const insertModal = () => {
     const iframe = document.createElement("iframe", {});
     iframe.classList.add("beam-iframe");
-    iframe.src = `${options.environment}/embedded?linkToken=${options.linkToken}`;
+    iframe.src = `http://localhost:8000/embedded?linkToken=${options.linkToken}`;
     iframe.name = Date.now().toString();
     iframe.style.display = "none";
     iframe.style.position = "fixed";
