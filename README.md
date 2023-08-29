@@ -6,7 +6,7 @@ Beam Link is the client-side component that your users will interact with in ord
 
 #### Beam Link flow overview
 
-The diagram below shows a model of how Beam Link is used to obtain a public_token, which will then be exchanged for an access_token, which is used to authenticate requests to the Beam API.
+The diagram below shows a model of how Beam Link is used to obtain a useId, which is used to access the user that has completed onboarding.
 
 ![](https://i.ibb.co/dD2ZN2s/Beam-SDK.png)
 
@@ -14,9 +14,9 @@ The diagram below shows a model of how Beam Link is used to obtain a public_toke
 
 **Step 2:** Once you have a link_token, you can use it to initialize Link. Link is a drop in client-side module available for web that handles the onboarding process.
 
-**Step 3:** After a user completes onboarding within Link, Link provides you with a public_token via the onSuccess callback. You then will pass the public_token to your backend to exchange it for a permanent access token 
+**Step 3:** After a user completes onboarding within Link, Link provides you with a unique user id
 
-**Step 4:** Store the users permanent access token on your server
+**Step 4:** Store the users unique id on your server
 
 
 #### Getting Started
@@ -35,14 +35,8 @@ The diagram below shows a model of how Beam Link is used to obtain a public_toke
   const { ready, open } = useBeamLink({
     environment: BEAM_ENVIRONMENT.DEVELOPMENT,
     linkToken: linkToken,
-    onSuccess: (publicToken: string) => {
-      // exchange the users public token for a long lived private token
-      fetch("/tokenExchange", {
-        method: 'POST',
-        body: JSON.stringify({publicToken})
-      })
-      .then((res) => res.json())
-      .then(() => console.log('user has onboarded successfully'))
+    onSuccess: (userId: string) => {
+      // store the userId on your server
       
     },
     onExit: () => {
@@ -136,26 +130,28 @@ Get a single user with their deposits and beam addresses
 
 ```
 
-Exchange a users public token for a private user token
+Update a users sourceAddresses
 
 ```
-    fetch("BACKEND_URL/partners/publicTokenExchange/", {
+    fetch("BACKEND_URL/partners/users/", {
         method: 'POST',
         headers: {
           'Authorization': 'Bearer ${private_token}'
         },
         body: JSON.stringify({
-            publicToken: "token", // this is the token passed from beam-link after onboarding
+            walletAddress: "user_wallet_address", // accepts ETH
+            emailAddress: "user_email_address",
+            sourceAddresses : ["your_addresses"] // accepts an array of strings
         })
     })
-
 ```
+
 
 Get a deposit from webhook event
 
 ```
 
-    fetch("BACKEND_URL/users/:privateUserAccessToken/deposits/:depositId", {
+    fetch("BACKEND_URL/users/:userId/deposits/:depositId", {
         method: 'GET',
         headers: {
           'Authorization': 'Bearer ${private_token}'
@@ -197,6 +193,8 @@ Also note that webhooks guarantee at-least-once delivery. So while rare, it is t
 `Beam.Payment.Initiated` Payment has been sent to the bank for processing <br/>
 `Beam.Payment.Completed` The bank has confirmed the payment has been completed <br/>
 `Beam.Payment.Rejected` The users payment has been rejected by the bank <br/>
+
+`User.Onboarding.Approved` The user has completed onboarding and you can now access their beam addresses <br/>
 
 ###### Endpoints
 
