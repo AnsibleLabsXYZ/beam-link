@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
 export enum BEAM_ENVIRONMENT {
-  DEVELOPMENT = 'https://beam.dev.ansiblelabs.xyz',
-  PRODUCTION = 'https://app.beam.ansiblelabs.xyz'
+  DEVELOPMENT = "https://beam.sandbox.ansiblelabs.xyz",
+  PRODUCTION = "https://app.beam.ansiblelabs.xyz",
 }
 
 export const useBeamLink = (options: {
@@ -51,7 +51,7 @@ export const useBeamLink = (options: {
   const insertModal = () => {
     const iframe = document.createElement("iframe", {});
     iframe.classList.add("beam-iframe");
-    iframe.src = `http://localhost:8000/embedded?linkToken=${options.linkToken}`;
+    iframe.src = `${options.environment}/embedded?linkToken=${options.linkToken}`;
     iframe.name = Date.now().toString();
     iframe.style.display = "none";
     iframe.style.position = "fixed";
