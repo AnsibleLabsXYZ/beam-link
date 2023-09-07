@@ -263,7 +263,8 @@ Updating webhook registration
 Current market price, Ansible fees, and expected payout value are available via an API call.
 
 ###### Supported Symbols
--- SEEE
+
+Asset support varies by environment, please see Environments below for a complete list
 
 ###### Endpoints
 
