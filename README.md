@@ -6,11 +6,8 @@ Beam Link is the client-side component that your users will interact with in ord
 
 #### Beam Link flow overview
 
-The diagram below shows a model of how Beam Link is used to obtain a useId, which is used to access the user that has completed onboarding.
 
-![](https://i.ibb.co/dD2ZN2s/Beam-SDK.png)
-
-**Step 1:** Create a new link_token by making a POST request to the users endpoint. This link_token is short-lived, one time use token that authenticates your app with Beam Link, our frontend module.
+**Step 1:** Create a new link_token by making a POST request to the users endpoint. This link_token is short-lived, one time use token that authenticates your user with Beam Link, our frontend module.
 
 **Step 2:** Once you have a link_token, you can use it to initialize Link. Link is a drop in client-side module available for web that handles the onboarding process.
 
@@ -76,22 +73,13 @@ You must provide the client secret as shown below
     }
 ```
 
-
-
-#### Environments
-
-##### Sandbox
-
-Backend Url: `https://api.dev.ansiblelabs.xyz/`
-
-##### Production
-
-Backend Url: `https://api.beam.ansiblelabs.xyz/`
-
-
 #### Examples
 
 Create a new link token to onboard a new user
+
+- walletAddress: This can either be a SOL or ETH address. We perform a risk scan on this address
+- emailAddress: Any valid email address for the user. For testing please note, our system requires a unique address. So if you have already onboarded and want to run through the flow again, please use a new email. Adding +unqiueString will suffice i.e. aanderson+sept7@ansiblelabs.xyz
+- sourceAddress: This is a list of addresses that will make transfers into the users beam address. This is how we know that a deposit for a user came from your organization
 
 ```
     fetch("BACKEND_URL/partners/users/", {
@@ -100,9 +88,9 @@ Create a new link token to onboard a new user
           'Authorization': 'Bearer ${private_token}'
         },
         body: JSON.stringify({
-            walletAddress: "user_wallet_address", // accepts ETH
+            walletAddress: "user_wallet_address",
             emailAddress: "user_email_address",
-            sourceAddresses : ["your_addresses"] // accepts an array of strings
+            sourceAddresses : ["your_addresses"]
         })
     })
 ```
@@ -198,6 +186,22 @@ Also note that webhooks guarantee at-least-once delivery. So while rare, it is t
 
 ###### Endpoints
 
+Create a webhook registration
+
+```
+    fetch("BACKEND_URL/partners/webhooks", {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ${private_token}'
+        },
+        body: JSON.stringify({
+            authUsername: "authUsername",
+            authPassword: "authPassword", // encrypted with AWS KMS
+            callbackUrl : "your_backend/webhooks-events"
+        })
+    })
+```
+
 Get current webhook registration and status
 
 Your webhook will have either an status of `ACTIVE` or `SUSPENDED`
@@ -222,22 +226,6 @@ Your webhook will have either an status of `ACTIVE` or `SUSPENDED`
     }
 ]
     
-```
-
-Create a webhook registration
-
-```
-    fetch("BACKEND_URL/partners/webhooks", {
-        method: 'POST',
-        headers: {
-          'Authorization': 'Bearer ${private_token}'
-        },
-        body: JSON.stringify({
-            authUsername: "authUsername",
-            authPassword: "authPassword", // encrypted with AWS KMS
-            callbackUrl : "your_backend/webhooks-events"
-        })
-    })
 ```
 
 Updating webhook registration
@@ -276,18 +264,7 @@ Current market price, Ansible fees, and expected payout value are available via 
 
 ###### Supported Symbols
 
-- ETH
-- USDC.ETH
-- USDC.POLYGON
-- MATIC.POLYGON
-- SOL
-- USDC.SOL
-- AVAX
-- USDC.AVAX
-- XLM
-- USDC.XLM
-- BTC
-- USDC.ARBITRUM
+Asset support varies by environment, please see Environments below for a complete list
 
 ###### Endpoints
 
@@ -311,3 +288,77 @@ Get current rate for 1 ETH
 }
     
 ```
+
+#### Environments
+
+##### Sandbox
+
+Our sandbox environment supports our complete end to end flow. Onboarding -> Deposits (test net) -> Payouts (no real money movement)
+
+Backend Url: `https://api.sandbox.ansiblelabs.xyz/`
+
+###### Networks
+
+*As of September 8, 2022, all ETH/ERC 20 tokens in SANDBOX transact on the Goerli Test Network*
+
+###### Supported
+
+- MATIC.POLYGON (Mumbai)
+- USDC.POLYGON (Goerli)
+- XLM ()
+- USDC.XLM ()
+- BTC (BTC Testnet)
+- SOL (DevNet)
+- USDC.SOL (DevNet)
+- XRP (Ripple Testnet)
+- ETH (Goerli)
+- USDC.ETH (Goerli)
+- MATIC.ETH (Goerli)
+- DOGE (Doge Testnet)
+
+
+###### Not Supported
+
+- AVAX (Fuji)
+- USDC.AVAX (Fuji)
+- USDC.ARBITRUM (Goerli)
+
+&nbsp;
+###### KYC
+
+You can complete KYC using fake data
+
+###### Payout details
+- For manual entry, a valid routing number is required. The account number only needs to be 7 characters in length or longer
+- For VISA debit, any valid VISA test card (4111 1111 1111 1111) and an expiration in the future
+- For Plaid, you can enter any username and password into any bank and then click through to account linkage
+
+&nbsp;
+##### Production
+
+Backend Url: `https://api.beam.ansiblelabs.xyz/`
+
+###### Networks
+*Only Native USDC is supported at this time. If you send wrapped ETH there is no guarantee we can retrieve the funds*
+
+###### Supported
+
+- MATIC.POLYGON (Native)
+- USDC.POLYGON (Polygon)
+- XLM (Stellar)
+- USDC.XLM (Stellar)
+- BTC (Bitcoin)
+- SOL (Solana)
+- USDC.SOL (Solana)
+- XRP (XRP)
+- ETH (Ethereum)
+- USDC.ETH (Ethereum)
+- MATIC.ETH (Polygon ERC20)
+- DOGE (Dogecoin)
+- AVAX (Avalanche
+C-Chain)
+- USDC.AVAX (Avalanche
+C-Chain)
+- USDC.ARBITRUM (Arbitrum)
+
+
