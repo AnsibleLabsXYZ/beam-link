@@ -184,6 +184,24 @@ Also note that webhooks guarantee at-least-once delivery. So while rare, it is t
 
 `User.Onboarding.Approved` The user has completed onboarding and you can now access their beam addresses <br/>
 
+###### Authentication
+
+Our webhook events are sent using Basic Auth. When you register your webhook, we require that you provide us with a username and password. Your password will be encrypted at rest using AWS KMS.
+
+Example of outgoing request header
+```
+  headers: {
+    Authorization: 'Basic c3VwZXJzZWNyZXRVc2VyTmFtZTpzdXBlcnNlY3VyZVBhc3N3b3Jk'
+  }
+```
+
+To decode, you can do the following in JavaScript.
+```
+    const authorization = request.headers['authorization'];
+    const auth = Buffer.from(authorization, 'base64').toString("utf8");
+    const [username, password] = auth?.split(":");
+```
+
 ###### Endpoints
 
 Create a webhook registration
@@ -196,7 +214,7 @@ Create a webhook registration
         },
         body: JSON.stringify({
             authUsername: "authUsername",
-            authPassword: "authPassword", // encrypted with AWS KMS
+            authPassword: "authPassword",
             callbackUrl : "your_backend/webhooks-events"
         })
     })
