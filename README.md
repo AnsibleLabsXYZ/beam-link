@@ -184,6 +184,23 @@ Also note that webhooks guarantee at-least-once delivery. So while rare, it is t
 
 `User.Onboarding.Approved` The user has completed onboarding and you can now access their beam addresses <br/>
 
+`User.BeamAddress.Added.MATIC.POLYGON` The user has been assigned an address that accepts Polygon<br/>
+`User.BeamAddress.Added.USDC.POLYGON` The user has been assigned an address that accepts USDC on Polygon <br/>
+`User.BeamAddress.Added.XLM` The user has been assigned an address that accepts Stellar <br/>
+`User.BeamAddress.Added.USDC.XLM` The user has been assigned an address that accepts USDC on Stellar <br/>
+`User.BeamAddress.Added.BTC` The user has been assigned an address that accepts Bitcoin <br/>
+`User.BeamAddress.Added.USDC.SOL` The user has been assigned an address that accepts USDC on Solana <br/>
+`User.BeamAddress.Added.SOL` The user has been assigned an address that accepts Solana <br/>
+`User.BeamAddress.Added.XRP` The user has been assigned an address that accepts Ripple <br/>
+`User.BeamAddress.Added.ETH` The user has been assigned an address that accepts Ethereum <br/>
+`User.BeamAddress.Added.USDC.ETH` The user has been assigned an address that accepts USDC on Ethereum <br/>
+`User.BeamAddress.Added.MATIC.ETH` The user has been assigned an address that accepts Polygon on Ethereum <br/>
+`User.BeamAddress.Added.DOGE` The user has been assigned an address that accepts Doge <br/>
+`User.BeamAddress.Added.AVAX` The user has been assigned an address that accepts Avalanche <br/>
+`User.BeamAddress.Added.USDC.AVAX` The user has been assigned an address that accepts USDC on Avalanche <br/>
+`User.BeamAddress.Added.USDC.ARBITRUM` The user has been assigned an address that accepts USDC on Arbitrum <br/>
+
+
 ###### Authentication
 
 Our webhook events are sent using Basic Auth. When you register your webhook, we require that you provide us with a username and password. Your password will be encrypted at rest using AWS KMS.
