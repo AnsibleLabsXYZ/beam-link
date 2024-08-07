@@ -57,7 +57,8 @@
     "semver": "^7.5.4",
     "ws": ">=8.17.1",
     "ip": ">=2.0.1",
-    "webpack-dev-middleware": ">=5.3.4"
+    "webpack-dev-middleware": ">=5.3.4",
+    "braces": ">=3.0.3"
 
   },
   "main": "dist/cjs/index.js",
